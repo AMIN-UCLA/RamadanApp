@@ -8,9 +8,7 @@ import { BASE_DATE } from "@/constants/baseDate";
 interface DayScheduleProps {
     day: "today" | "tomorrow" | "dayAfterTomorrow";
     prayerTimes: { [key: string]: string } | undefined;
-    // optional baseDate prop to override the default BASE_DATE
     baseDate?: Date;
-    // new optional prop for next day's prayer times (for suhoor countdown)
     nextDayPrayerTimes?: { [key: string]: string };
 }
 
@@ -22,7 +20,8 @@ export default function DaySchedule({
 }: DayScheduleProps) {
     const [date, setDate] = useState<Date>(new Date());
     const [timeLeft, setTimeLeft] = useState<number>(0);
-    const [suhoorTimeLeft, setSuhoorTimeLeft] = useState<number>(0);
+    const [countdownLabel, setCountdownLabel] =
+        useState<string>("Time until Iftaar:");
 
     useEffect(() => {
         const base = baseDate ? new Date(baseDate) : new Date(BASE_DATE);
@@ -34,7 +33,6 @@ export default function DaySchedule({
         setDate(base);
     }, [day, baseDate]);
 
-    // Compute normalized dates and Hijri date
     const normalizedCurrent = new Date();
     normalizedCurrent.setHours(0, 0, 0, 0);
     const normalizedDate = new Date(
@@ -49,7 +47,6 @@ export default function DaySchedule({
         year: "numeric",
     }).format(date);
 
-    // Determine prefix for header based on day prop
     let prefix = "";
     const normalizedTomorrow = new Date(normalizedCurrent);
     normalizedTomorrow.setDate(normalizedTomorrow.getDate() + 1);
@@ -62,84 +59,69 @@ export default function DaySchedule({
         prefix = "Tomorrow, ";
     }
 
+    // Dynamic countdown: before maghrib shows "Time until Iftaar:" (target = today's maghrib)
+    // If current time is after maghrib and before tomorrow's fajr, show "Time until Fajr:" (target = tomorrow's fajr)
     useEffect(() => {
         if (
-            isToday &&
             prayerTimes &&
             prayerTimes["maghrib"] &&
-            prayerTimes["fajr"]
+            nextDayPrayerTimes &&
+            nextDayPrayerTimes["fajr"]
         ) {
-            const targetTimeStr = prayerTimes["maghrib"];
-            const [targetHour, targetMinute] = targetTimeStr
+            const [mHour, mMinute] = prayerTimes["maghrib"]
                 .split(":")
                 .map(Number);
-            const targetTime = new Date(date);
-            targetTime.setHours(targetHour, targetMinute, 0, 0);
+            const iftaarTime = new Date(date);
+            iftaarTime.setHours(mHour, mMinute, 0, 0);
 
-            // Compute today's fajr time
-            const fajrTimeStr = prayerTimes["fajr"];
-            const [fajrHour, fajrMinute] = fajrTimeStr.split(":").map(Number);
-            const todayFajr = new Date(date);
-            todayFajr.setHours(fajrHour, fajrMinute, 0, 0);
+            const tomorrow = new Date(date);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const [fajrHour, fajrMinute] = nextDayPrayerTimes["fajr"]
+                .split(":")
+                .map(Number);
+            const tomFajrTime = new Date(tomorrow);
+            tomFajrTime.setHours(fajrHour, fajrMinute, 0, 0);
 
             function updateCountdown() {
                 const now = new Date();
-                if (now > todayFajr && now < targetTime) {
-                    const diff = targetTime.getTime() - now.getTime();
-                    setTimeLeft(diff);
+                if (now < iftaarTime) {
+                    setTimeLeft(iftaarTime.getTime() - now.getTime());
+                    setCountdownLabel("Time until Iftaar:");
+                } else if (now >= iftaarTime && now < tomFajrTime) {
+                    setTimeLeft(tomFajrTime.getTime() - now.getTime());
+                    setCountdownLabel("Time until Fajr:");
+                } else {
+                    // After tomorrow's fajr, switch back to iftaar countdown (new day)
+                    setTimeLeft(0);
+                    setCountdownLabel("Time until Iftaar:");
+                }
+            }
+            updateCountdown();
+            const intervalId = setInterval(updateCountdown, 1000);
+            return () => clearInterval(intervalId);
+        } else if (prayerTimes && prayerTimes["maghrib"]) {
+            const [mHour, mMinute] = prayerTimes["maghrib"]
+                .split(":")
+                .map(Number);
+            const iftaarTime = new Date(date);
+            iftaarTime.setHours(mHour, mMinute, 0, 0);
+            function updateCountdown() {
+                const now = new Date();
+                if (now < iftaarTime) {
+                    setTimeLeft(iftaarTime.getTime() - now.getTime());
+                    setCountdownLabel("Time until Iftaar:");
                 } else {
                     setTimeLeft(0);
+                    setCountdownLabel("Time until Iftaar:");
                 }
             }
             updateCountdown();
             const intervalId = setInterval(updateCountdown, 1000);
             return () => clearInterval(intervalId);
         }
-    }, [isToday, prayerTimes, date]);
-
-    // Updated suhoor countdown to use isha instead of maghrib
-    useEffect(() => {
-        if (
-            isToday &&
-            prayerTimes &&
-            prayerTimes["isha"] &&
-            nextDayPrayerTimes &&
-            nextDayPrayerTimes["fajr"]
-        ) {
-            // Compute today's isha target time instead of maghrib
-            const [ishaHour, ishaMinute] = prayerTimes["isha"]
-                .split(":")
-                .map(Number);
-            const ishaTime = new Date(date);
-            ishaTime.setHours(ishaHour, ishaMinute, 0, 0);
-
-            // Compute tomorrow's fajr target time
-            const tomorrow = new Date(date);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const [fajrHour, fajrMinute] = nextDayPrayerTimes["fajr"]
-                .split(":")
-                .map(Number);
-            const fajrTime = new Date(tomorrow);
-            fajrTime.setHours(fajrHour, fajrMinute, 0, 0);
-
-            function updateSuhoorCountdown() {
-                const now = new Date();
-                // show suhoor countdown only if current time is after isha and before fajr
-                if (now > ishaTime && now < fajrTime) {
-                    const diff = fajrTime.getTime() - now.getTime();
-                    setSuhoorTimeLeft(diff);
-                } else {
-                    setSuhoorTimeLeft(0);
-                }
-            }
-            updateSuhoorCountdown();
-            const intervalId = setInterval(updateSuhoorCountdown, 1000);
-            return () => clearInterval(intervalId);
-        }
-    }, [isToday, prayerTimes, nextDayPrayerTimes, date]);
+    }, [prayerTimes, nextDayPrayerTimes, date]);
 
     return (
-        // Updated container with more pronounced rounded corners using rounded-xl
         <div
             className={`rounded-xl p-4 md:p-6 h-full ${
                 isToday
@@ -162,27 +144,14 @@ export default function DaySchedule({
                 {", "}
                 {hijriDate}
             </p>
-            {/* Updated Countdown for Maghrib: only shows between Fajr and Maghrib */}
-            {isToday && timeLeft > 0 && (
+            {/* Dynamic Countdown on Today card only */}
+            {prayerTimes && timeLeft >= 0 && day === "today" && (
                 <p className="text-xs text-blue-500 mt-2">
-                    Time until Maghrib:{" "}
+                    {countdownLabel}{" "}
                     {timeLeft < 60000
                         ? `${Math.floor(timeLeft / 1000)}s`
                         : `${Math.floor(timeLeft / 3600000)}h ${Math.floor(
                               (timeLeft % 3600000) / 60000
-                          )}m`}
-                </p>
-            )}
-            {/* Countdown for Suhoor */}
-            {isToday && suhoorTimeLeft > 0 && (
-                <p className="text-xs text-purple-500 mt-2">
-                    Time until Fajr:{" "}
-                    {suhoorTimeLeft < 60000
-                        ? `${Math.floor(suhoorTimeLeft / 1000)}s`
-                        : `${Math.floor(
-                              suhoorTimeLeft / 3600000
-                          )}h ${Math.floor(
-                              (suhoorTimeLeft % 3600000) / 60000
                           )}m`}
                 </p>
             )}
