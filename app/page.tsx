@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Footer from "@/components/Footer";
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
     const formatDateForInput = (date: Date) => {
@@ -67,7 +67,6 @@ export default function Home() {
                                                     | "dayAfterTomorrow"
                                             }
                                             baseDate={selectedDate}
-                                            
                                         />
                                     </SwiperSlide>
                                 ))}
@@ -99,8 +98,8 @@ export default function Home() {
                         value={dateInput}
                         onChange={(e) => setDateInput(e.target.value)}
                         className="p-2 border rounded"
-                        min="2025-02-28"
-                        max="2025-03-30"
+                        min="2026-02-17"
+                        max="2026-03-20"
                     />
                     {/* Button to return to today if selectedDate is not current day */}
                     {formatDateForInput(selectedDate) !==
