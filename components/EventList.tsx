@@ -10,6 +10,17 @@ function getDirectionsUrl(location: string): string {
     return `https://www.google.com/maps/dir/?api=1&destination=${query}`;
 }
 
+function getDirectionsUrlForDevice(location: string): string {
+    if (typeof navigator === "undefined") return getDirectionsUrl(location);
+    const query = encodeURIComponent(`${location}, UCLA`);
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/.test(ua);
+    if (isIOS) return `https://maps.apple.com/?daddr=${query}`;
+    if (isAndroid) return `geo:0,0?q=${query}`;
+    return getDirectionsUrl(location);
+}
+
 interface EventListProps {
     date: Date;
 }
@@ -69,7 +80,7 @@ export default function EventList({ date }: EventListProps) {
                                     Location:
                                 </span>
                                 <Link
-                                    href={getDirectionsUrl(event.location)}
+                                    href={getDirectionsUrlForDevice(event.location)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-1.5 text-gray-800 dark:text-gray-200 hover:underline underline-offset-2 decoration-gray-400 dark:decoration-gray-500 transition-[color,text-decoration] duration-150"
