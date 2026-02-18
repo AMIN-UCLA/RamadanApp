@@ -151,6 +151,7 @@ export default function DaySchedule({
                 </p>
             )}
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-600 pb-2 md:mb-2"></p>
+
             <PrayerTimesView prayerTimes={prayerTimes} />
             <EventList date={date} />
         </div>

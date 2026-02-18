@@ -17,15 +17,17 @@ export default function Footer() {
                     </p>
                 </div>
                 {/* Social media logos updated with small dimensions and correct src */}
-                <div className="flex space-x-4 mb-4">
+                <div className="flex space-x-2 mb-4">
                     <Link
                         href="https://www.instagram.com/amin.ucla"
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg active:opacity-70 touch-manipulation"
+                        aria-label="Instagram"
                     >
                         <img
                             src="/instagram-logo.svg"
-                            alt="Instagram"
+                            alt=""
                             className="h-6 w-6 hover:opacity-80"
                         />
                     </Link>
@@ -33,10 +35,12 @@ export default function Footer() {
                         href="https://www.linkedin.com/company/105635897/"
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg active:opacity-70 touch-manipulation"
+                        aria-label="LinkedIn"
                     >
                         <img
                             src="/linkedin-logo.svg"
-                            alt="LinkedIn"
+                            alt=""
                             className="h-6 w-6 hover:opacity-80"
                         />
                     </Link>

@@ -3,9 +3,16 @@ import "./globals.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
     title: "Ramadan App",
@@ -24,7 +31,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+            <body className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-[100dvh] pb-[env(safe-area-inset-bottom)]">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

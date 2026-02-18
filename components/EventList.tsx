@@ -83,7 +83,7 @@ export default function EventList({ date }: EventListProps) {
                                     href={getDirectionsUrlForDevice(event.location)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 text-gray-800 dark:text-gray-200 hover:underline underline-offset-2 decoration-gray-400 dark:decoration-gray-500 transition-[color,text-decoration] duration-150"
+                                    className="inline-flex items-center gap-1.5 min-h-[44px] py-2 -my-1 -mx-1 px-1 rounded text-gray-800 dark:text-gray-200 hover:underline underline-offset-2 decoration-gray-400 dark:decoration-gray-500 active:opacity-70 touch-manipulation"
                                     title="Get directions"
                                 >
                                     <MapPin className="h-3 w-3 shrink-0 opacity-50" aria-hidden />

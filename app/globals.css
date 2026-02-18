@@ -25,10 +25,18 @@
   background-color: #60a5fa; /* blue-400 */
 }
 
+/* Mobile: larger pagination hit area for touch */
 @media (max-width: 767px) {
   .swiper-button-next,
   .swiper-button-prev {
     --swiper-navigation-size: 25px;
+  }
+  .swiper-pagination-bullet {
+    min-width: 12px;
+    min-height: 12px;
+  }
+  .swiper-pagination-bottom {
+    padding: 12px 0; /* larger vertical tap area */
   }
 }
 

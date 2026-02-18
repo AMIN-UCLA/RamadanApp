@@ -55,7 +55,9 @@ export default function Home() {
                                     el: ".swiper-pagination-bottom",
                                 }}
                                 modules={[Pagination]}
-                                className="mb-4"
+                                className="mb-4 touch-pan-y"
+                                touchReleaseOnEdges
+                                resistanceRatio={0.85}
                             >
                                 {days.map((day, index) => (
                                     <SwiperSlide key={index}>
@@ -89,23 +91,23 @@ export default function Home() {
                             ))}
                         </div>
                     ))}
-                <div className="mt-8 flex flex-col items-center">
-                    <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
+                <div className="mt-8 flex flex-col items-center gap-4 px-1 pb-[env(safe-area-inset-bottom)]">
+                    <p className="mb-0 text-sm text-gray-700 dark:text-gray-300">
                         Select date for preview:
                     </p>
                     <input
                         type="date"
                         value={dateInput}
                         onChange={(e) => setDateInput(e.target.value)}
-                        className="p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                        className="min-h-[44px] px-4 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 touch-manipulation w-full max-w-[280px]"
                         min="2026-02-17"
                         max="2026-03-20"
                     />
-                    {/* Button to return to today if selectedDate is not current day */}
                     {formatDateForInput(selectedDate) !==
                         formatDateForInput(new Date()) && (
                         <button
-                            className="mt-4 px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded hover:bg-blue-600 dark:hover:bg-blue-700"
+                            type="button"
+                            className="min-h-[44px] px-6 py-3 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 active:opacity-90 touch-manipulation font-medium"
                             onClick={() => {
                                 const today = new Date();
                                 setDateInput(formatDateForInput(today));

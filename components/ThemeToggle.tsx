@@ -28,7 +28,7 @@ export function CrescentThemeToggle() {
             type="button"
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="shrink-0 p-1 -m-1 rounded-full text-blue-500 dark:text-blue-400 hover:opacity-80 active:opacity-70 transition-opacity touch-manipulation"
+            className="shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-blue-500 dark:text-blue-400 hover:opacity-80 active:opacity-70 transition-opacity touch-manipulation"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
