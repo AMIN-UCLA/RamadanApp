@@ -44,7 +44,7 @@ export default function PrayerTimesView({ prayerTimes }: PrayerTimesViewProps) {
             <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
                 Prayer Times
             </h3>
-            <ul className="space-y-0 text-sm md:text-base border-b border-gray-200 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
+            <ul className="space-y-0 md:space-y-0.5 text-sm md:text-base border-b border-gray-200 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
                 {Object.entries(prayerTimes).map(([prayerId, time]) => {
                     const id = prayerId as PrayerId;
                     const isFajr = id === "fajr";
@@ -59,19 +59,19 @@ export default function PrayerTimesView({ prayerTimes }: PrayerTimesViewProps) {
                                 <button
                                     type="button"
                                     onClick={() => setExpandedDua(isExpanded ? null : (isFajr ? "fajr" : "maghrib"))}
-                                    className="w-full grid grid-cols-[1fr_auto] gap-3 items-center min-h-[44px] py-2.5 px-0 rounded-lg text-left touch-manipulation active:opacity-70"
+                                    className="w-full grid grid-cols-[1fr_auto] gap-3 items-center min-h-[44px] py-0.5 px-0 rounded-lg text-left touch-manipulation active:opacity-70 whitespace-nowrap"
                                     aria-expanded={isExpanded}
                                     aria-label={`${dua?.label} dua`}
                                 >
-                                    <span className="flex items-center gap-1.5 capitalize min-w-0">
+                                    <span className="flex items-center gap-1.5 capitalize min-w-0 truncate">
                                         {prayerNameLookup[id]}
                                         <ChevronDown className={`h-3.5 w-3.5 shrink-0 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
                                     </span>
                                     <span className="tabular-nums text-right shrink-0 w-16">{TIME_FORMATTER.format(time)}</span>
                                 </button>
                             ) : (
-                                <div className="grid grid-cols-[1fr_auto] gap-3 items-center min-h-[44px] py-2.5 px-0">
-                                    <span className="capitalize min-w-0">{prayerNameLookup[id]}</span>
+                                <div className="grid grid-cols-[1fr_auto] gap-3 items-center min-h-[44px] py-0.5 px-0 whitespace-nowrap">
+                                    <span className="capitalize min-w-0 truncate">{prayerNameLookup[id]}</span>
                                     <span className="tabular-nums text-right shrink-0 w-16">{TIME_FORMATTER.format(time)}</span>
                                 </div>
                             )}
