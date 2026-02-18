@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className=" text-black py-6 mt-8">
+        <footer className="py-6 mt-8 text-gray-900 dark:text-gray-100">
             <div className="container mx-auto flex flex-col items-center">
                 {/* Main logo section in column */}
                 <div className="flex flex-col items-center mb-4">
@@ -11,7 +11,7 @@ export default function Footer() {
                         alt="AMIN Logo"
                         className="h-12 w-12 mb-2"
                     />
-                    <p className="text-xs">
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
                         &copy; {new Date().getFullYear()} AMIN. All rights
                         reserved.
                     </p>

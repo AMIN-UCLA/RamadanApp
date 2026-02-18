@@ -23,10 +23,10 @@ const prayerNameLookup: Record<PrayerId, string> = {
 export default function PrayerTimesView({ prayerTimes }: PrayerTimesViewProps) {
     return (
         <div className="mb-4 md:mb-6">
-            <h3 className="text-lg md:text-xl font-semibold mb-2">
+            <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
                 Prayer Times
             </h3>
-            <ul className="space-y-1 md:space-y-2 text-sm md:text-base border-b pb-2">
+            <ul className="space-y-1 md:space-y-2 text-sm md:text-base border-b border-gray-200 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
                 {Object.entries(prayerTimes).map(([prayerId, time]) => (
                     <li key={prayerId} className="flex justify-between">
                         <span className="capitalize">

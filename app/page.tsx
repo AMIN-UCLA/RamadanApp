@@ -40,7 +40,7 @@ export default function Home() {
     const days = ["today", "tomorrow", "dayAfterTomorrow"];
 
     return (
-        <main className="min-h-screen bg-gray-100">
+        <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <Header />
             <div className="container mx-auto px-4 py-8">
                 {true &&
@@ -90,14 +90,14 @@ export default function Home() {
                         </div>
                     ))}
                 <div className="mt-8 flex flex-col items-center">
-                    <p className="mb-2 text-sm text-gray-700">
+                    <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
                         Select date for preview:
                     </p>
                     <input
                         type="date"
                         value={dateInput}
                         onChange={(e) => setDateInput(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                         min="2026-02-17"
                         max="2026-03-20"
                     />
@@ -105,7 +105,7 @@ export default function Home() {
                     {formatDateForInput(selectedDate) !==
                         formatDateForInput(new Date()) && (
                         <button
-                            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                            className="mt-4 px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded hover:bg-blue-600 dark:hover:bg-blue-700"
                             onClick={() => {
                                 const today = new Date();
                                 setDateInput(formatDateForInput(today));

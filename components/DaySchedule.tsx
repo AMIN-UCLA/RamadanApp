@@ -107,11 +107,11 @@ export default function DaySchedule({
         <div
             className={`rounded-xl p-4 md:p-6 h-full ${
                 isToday
-                    ? "border-2 border-blue-500 shadow-lg bg-white"
-                    : "bg-white shadow-md"
+                    ? "border-2 border-blue-500 dark:border-blue-400 shadow-lg bg-white dark:bg-gray-800"
+                    : "bg-white dark:bg-gray-800 shadow-md"
             }`}
         >
-            <h2 className="text-xl md:text-2xl font-semibold mb-1 md:mb-1">
+            <h2 className="text-xl md:text-2xl font-semibold mb-1 md:mb-1 text-gray-900 dark:text-gray-100">
                 {prefix +
                     normalizedDate.toLocaleDateString("en-US", {
                         month: "long",
@@ -119,7 +119,7 @@ export default function DaySchedule({
                         year: "numeric",
                     })}
             </h2>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
                 {normalizedDate.toLocaleDateString("en-US", {
                     weekday: "long",
                 })}
@@ -128,7 +128,7 @@ export default function DaySchedule({
             </p>
             {/* Dynamic Countdown Section for Maghrib */}
             {isToday && timeLeft > 0 && (
-                <p className="text-xs text-blue-500 mt-2">
+                <p className="text-xs text-blue-500 dark:text-blue-400 mt-2">
                     Time until Iftaar:{" "}
                     {timeLeft < 60000
                         ? `${Math.floor(timeLeft / 1000)}s`
@@ -139,7 +139,7 @@ export default function DaySchedule({
             )}
             {/* New: Countdown for Suhoor */}
             {isToday && suhoorTimeLeft > 0 && (
-                <p className="text-xs text-purple-500 mt-2">
+                <p className="text-xs text-purple-500 dark:text-purple-400 mt-2">
                     Time until Fajr:{" "}
                     {suhoorTimeLeft < 60000
                         ? `${Math.floor(suhoorTimeLeft / 1000)}s`
@@ -150,7 +150,7 @@ export default function DaySchedule({
                           )}m`}
                 </p>
             )}
-            <p className="text-xs text-gray-500 mb-2 border-b pb-2 md:mb-2"></p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-600 pb-2 md:mb-2"></p>
             <PrayerTimesView prayerTimes={prayerTimes} />
             <EventList date={date} />
         </div>

@@ -11,10 +11,29 @@
   background-color: #2563eb; /* blue-600 */
 }
 
+/* Dark mode: Swiper nav and pagination remain visible */
+.dark .swiper-button-next,
+.dark .swiper-button-prev {
+  color: #60a5fa; /* blue-400 */
+}
+
+.dark .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.dark .swiper-pagination-bullet-active {
+  background-color: #60a5fa; /* blue-400 */
+}
+
 @media (max-width: 767px) {
   .swiper-button-next,
   .swiper-button-prev {
     --swiper-navigation-size: 25px;
   }
+}
+
+/* Native date input dark mode (fallback for browsers that ignore Tailwind on input) */
+.dark input[type="date"] {
+  color-scheme: dark;
 }
 

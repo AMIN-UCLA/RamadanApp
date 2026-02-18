@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
     title: "Ramadan App",
@@ -22,12 +23,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body>
-                {children} <Analytics />
+        <html lang="en" suppressHydrationWarning>
+            <body className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
+                    <Analytics />
+                </ThemeProvider>
             </body>
         </html>
     );
 }
-
-import "./globals.css";
