@@ -72,8 +72,8 @@
       "type": "iftaar",
       "time": "5:45PM",
       "location": "Carnesale Palisades Ballroom",
-      "details": "NYCG",
-      "organization": "UVP - Posisble collab with MSA @ UCLA Geffen"
+      "details": "India's Oven + Sweets & Chai",
+      "organization": "BMP+BSA"
     },
     {
       "type": "taraweeh",
@@ -102,7 +102,7 @@
       "type": "iftaar",
       "time": "5:45PM",
       "location": "Pauley Clubhouse",
-      "details": "Al Watan",
+      "details": "Al-Watan",
       "organization": "Al-Talib"
     },
     {
@@ -117,8 +117,8 @@
       "type": "iftaar",
       "time": "5:50PM",
       "location": "Pauley Clubhouse",
-      "details": "New India Oven",
-      "organization": "BMP + BSA"
+      "details": "NYCG",
+      "organization": "UVP"
     },
     {
       "type": "taraweeh",
@@ -175,10 +175,10 @@
   "2026-03-03": [
     {
       "type": "iftaar",
-      "time": "5:50PM",
+      "time": "5:55PM",
       "location": "Carnesale Palisades Ballroom",
-      "details": "Possbly House of Mandi",
-      "organization": "CPO"
+      "details": "Banadir + Syks Desserts",
+      "organization": "FAM"
     },
     {
       "type": "taraweeh",
@@ -207,8 +207,8 @@
       "type": "iftaar",
       "time": "5:55PM",
       "location": "Pauley Clubhouse",
-      "details": "Banadir + Syks Desserts",
-      "organization": "FAM"
+      "details": "House of Mandi + Magnolia Bakery",
+      "organization": "CPO"
     },
     {
       "type": "taraweeh",
@@ -282,7 +282,7 @@
       "type": "iftaar",
       "time": "6:55PM",
       "location": "Pauley Clubhouse",
-      "details": "Shawarma House + Qamaria",
+      "details": "Shawarma House + Knafeh",
       "organization": "PSU & PCRF"
     },
     {
