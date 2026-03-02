@@ -76,19 +76,19 @@ export default function PrayerTimesView({ prayerTimes }: PrayerTimesViewProps) {
                                 </div>
                             )}
                             {hasDua && isExpanded && dua && (
-                                <div className="mt-1 mb-2 pl-0 pr-0 pt-3 pb-2 px-2 rounded-lg bg-gray-50 dark:bg-gray-800/60 text-left">
-                                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2.5">
+                                <div className="mt-1.5 mb-2 pt-3 pb-2.5 px-0 border-t border-gray-200 dark:border-gray-600 text-left">
+                                    <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
                                         Dua for {dua.label}
-                                    </h4>
-                                    <p className="text-base text-gray-900 dark:text-gray-100 leading-relaxed" dir="rtl" lang="ar">
+                                    </p>
+                                    <p className="text-[15px] leading-loose text-gray-900 dark:text-gray-100" dir="rtl" lang="ar">
                                         {dua.ar}
                                     </p>
                                     {"transliteration" in dua && (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1.5 italic">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-snug">
                                             {dua.transliteration}
                                         </p>
                                     )}
-                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1.5 italic">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1.5 leading-snug">
                                         {dua.en}
                                     </p>
                                 </div>

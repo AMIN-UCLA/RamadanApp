@@ -42,6 +42,7 @@
       "type": "Jumaa",
       "time": "1:15PM",
       "location": "John Wooden Pyramid Room",
+      "directionsQuery": "John Wooden Pyramid Room, UCLA, Los Angeles, CA",
       "details": ""
     },
     {

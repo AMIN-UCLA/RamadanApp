@@ -5,20 +5,9 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import scheduleData from "@/data/schedule.json";
 
-function getDirectionsUrl(location: string): string {
-    const query = encodeURIComponent(`${location}, UCLA`);
+function getDirectionsUrl(destination: string): string {
+    const query = encodeURIComponent(destination);
     return `https://www.google.com/maps/dir/?api=1&destination=${query}`;
-}
-
-function getDirectionsUrlForDevice(location: string): string {
-    if (typeof navigator === "undefined") return getDirectionsUrl(location);
-    const query = encodeURIComponent(`${location}, UCLA`);
-    const ua = navigator.userAgent;
-    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    const isAndroid = /Android/.test(ua);
-    if (isIOS) return `https://maps.apple.com/?daddr=${query}`;
-    if (isAndroid) return `geo:0,0?q=${query}`;
-    return getDirectionsUrl(location);
 }
 
 interface EventListProps {
@@ -29,6 +18,8 @@ interface Event {
     type: "taraweeh" | "iftaar" | "Jumaa" | "other";
     time: string;
     location: string;
+    /** Optional: exact search string for Apple/Google Maps. If omitted, uses "{location}, UCLA". */
+    directionsQuery?: string;
     details?: string;
     name?: string;
     organization?: string;
@@ -80,7 +71,7 @@ export default function EventList({ date }: EventListProps) {
                                     Location:
                                 </span>
                                 <Link
-                                    href={getDirectionsUrlForDevice(event.location)}
+                                    href={getDirectionsUrl(event.directionsQuery ?? `${event.location}, UCLA`)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-1.5 min-h-[44px] py-2 -my-1 -mx-1 px-1 rounded text-gray-800 dark:text-gray-200 hover:underline underline-offset-2 decoration-gray-400 dark:decoration-gray-500 active:opacity-70 touch-manipulation"
